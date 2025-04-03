@@ -34,9 +34,8 @@ INNER JOIN [Sales].[OrderDetails] AS OD ON OD.orderid=O.orderid
 GO
 CREATE OR ALTER VIEW InfosProduits AS
 SELECT P.productid,
-		P.productname,
 		P.unitprice AS catalogPrice,
-			P.productname,
+		P.productname,
 		P.categoryid,
 		C.categoryname
  FROM [Production].[Products] AS P
