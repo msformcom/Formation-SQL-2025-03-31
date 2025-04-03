@@ -56,23 +56,29 @@ AS
 SELECT n AS Annee FROM Nums WHERE 
 n BETWEEN YEAR(GETDATE())-3 AND YEAR(DATEADD(year,-1,GETDATE()))
 
+-- View dépendante d'une autre view
 CREATE VIEW AnneesMoisDeuxPassees
 AS
 SELECT * FROM AnneesDeuxPassees A
 CROSS JOIN (SELECT n AS mois FROM nums WHERE n BETWEEN 1 AND 12) AS Mois
 
-
-CREATE VIEW AnneesMois
+-- View annees fonction des données dans les commande
+CREATE OR ALTER VIEW Annees
 AS
-SELECT n AS Annee FROM Nums WHERE 
+SELECT n AS Annee
+ FROM Nums WHERE 
 n BETWEEN (SELECT MIN(YEAR(OrderDate)) FROM Sales.Orders) 
 AND (SELECT MAX(YEAR(OrderDate)) FROM Sales.Orders)
 
-SELECT  AM.Annee,AM.Mois,	
+-- Vue de CA
+CREATE OR ALTER VIEW InfosCADate
+AS
+SELECT  AM.Annee,
+		AM.Mois,
 		ISNULL(SUM(I.MontantTotal),0) AS CA
  FROM AnneesMoisDeuxPassees AS AM
 	LEFT JOIN InfosCommandes I ON AM.Annee=YEAR(I.DateCommande) AND AM.mois=MONTH(I.DateCommande)
 	GROUP BY AM.Annee,AM.Mois
-	ORDER BY Annee,Mois
+
 
 
