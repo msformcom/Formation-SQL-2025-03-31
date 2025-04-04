@@ -1,8 +1,8 @@
 /*
 Transaction : Ensemble d'instructions qui répond à une certain nombre de contraintes
 A : Atomicité => TOUT OU RIEN
-C : Cohérence
-I : ISolation : Les do,,ées sont verrouillées pendant le cours d'une transaction => evite des conflits ou des lectures fausses
+C : Cohérence : Les données sont cosidérées comme cohérentes avant la transaction et doivent être cohérentes après
+I : ISolation : Les données sont verrouillées pendant le cours d'une transaction => evite des conflits ou des lectures fausses
 D : Durabilite => une transaction terminée doit rester dans la bDD => Sauvegardée de manière durable
 */
 
